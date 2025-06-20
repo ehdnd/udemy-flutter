@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "generatedAt": "2025-06-04T11:54:34.764Z",
+    "tasksAnalyzed": 20,
+    "totalTasks": 20,
+    "analysisCount": 20,
+    "thresholdScore": 5,
+    "projectName": "Taskmaster",
+    "usedResearch": true
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Setup Flutter Project and Dependencies",
+      "complexityScore": 5,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the setup process into: (1) Flutter version management, (2) project initialization, (3) enabling Material 3, (4) adding UI dependencies, (5) adding database/storage dependencies, (6) adding analytics/monetization dependencies, and (7) verifying the setup with test builds.",
+      "reasoning": "This task is foundational but well-defined, involving standard project setup, dependency management, and configuration. It already has some subtasks, but could be further split for clarity and to ensure each dependency group is handled and tested separately. The complexity is moderate due to the number of dependencies and the need for correct configuration."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Implement Basic Canvas and Stroke Functionality",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into subtasks for: (1) setting up the drawing canvas, (2) integrating scribble for stroke rendering, (3) implementing gesture detection, (4) adding erasing, color, and width controls, and (5) supporting Apple Pencil pressure sensitivity.",
+      "reasoning": "This task involves custom rendering, gesture handling, and device-specific features (like Apple Pencil support), each of which can be complex and benefit from focused subtasks. The integration of UI controls and pressure sensitivity adds to the technical challenge."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Implement Undo/Redo Functionality",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down into: (1) designing the command pattern for actions, (2) implementing the UndoManager with stack logic, (3) integrating undo/redo with the UI, and (4) enforcing the 500-action limit.",
+      "reasoning": "Undo/redo systems require careful state management and integration with the UI. The stack size limit and command pattern add architectural complexity, but the scope is focused."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Set Up Drift ORM and Local Database",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into: (1) defining the database schema, (2) implementing DAOs for each entity, (3) setting up database initialization, (4) handling migrations, and (5) integrating drift_dev for code generation.",
+      "reasoning": "Database setup with schema design, DAOs, migrations, and code generation is a multi-step process that requires attention to detail and testing. Each step is critical for data integrity and maintainability."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Implement Auto-Save Functionality",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break into: (1) implementing the timer mechanism, (2) detecting unsaved changes, (3) persisting changes efficiently to the database, and (4) optimizing for minimal write operations.",
+      "reasoning": "Auto-save involves periodic triggers, change detection, and efficient database writes. Ensuring performance and reliability adds to the complexity."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Implement ZIP Export Functionality",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into: (1) serializing note data to JSON, (2) compressing strokes.json with zstd, (3) packaging files using the archive package, (4) creating the .myhandnote file format, and (5) implementing export and import validation.",
+      "reasoning": "This task requires data serialization, compression, packaging, and validation, each with its own technical considerations and potential pitfalls."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Integrate PDF Viewer using flutter_pdfx",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down into: (1) integrating flutter_pdfx, (2) creating the combined PDF and drawing canvas widget, (3) implementing page navigation, and (4) adding zoom and layer management.",
+      "reasoning": "PDF integration with custom drawing overlays and navigation requires careful widget composition and UI/UX considerations."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Implement PDF Export using dart_pdf",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into: (1) generating new PDF documents, (2) overlaying vector drawings, (3) preserving stroke properties, (4) handling multi-page exports, and (5) validating export accuracy.",
+      "reasoning": "Exporting annotated PDFs involves complex rendering, property preservation, and multi-page handling, each requiring focused implementation and testing."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Implement Lasso Selection Tool",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break into: (1) implementing lasso selection mode, (2) performing hit-testing for strokes, (3) visual feedback for selection, (4) enabling move/delete/change operations, and (5) integrating with the drawing state.",
+      "reasoning": "Lasso selection combines gesture recognition, geometric hit-testing, UI feedback, and state management, making it a technically challenging feature."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Implement Link Creation Functionality",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Expand into: (1) implementing addLink logic, (2) storing links in the database, (3) visualizing links in the UI, and (4) handling cross-note linking.",
+      "reasoning": "Link creation involves both backend (data) and frontend (visualization) work, with the added complexity of cross-entity relationships."
+    },
+    {
+      "taskId": 11,
+      "taskTitle": "Implement Backlinks Side Panel",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down into: (1) designing the side panel UI, (2) implementing backlink retrieval logic, (3) optimizing query performance, and (4) enabling navigation to linked notes.",
+      "reasoning": "This task combines UI development, database querying, performance optimization, and navigation logic."
+    },
+    {
+      "taskId": 12,
+      "taskTitle": "Integrate GraphView for Note Visualization",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into: (1) integrating the graphview package, (2) mapping notes and links to nodes and edges, (3) implementing force-directed layout, (4) adding interactive elements, and (5) optimizing for performance.",
+      "reasoning": "Graph visualization requires data mapping, layout algorithms, interactivity, and performance tuning, each a significant technical area."
+    },
+    {
+      "taskId": 13,
+      "taskTitle": "Implement Graph Interaction and Navigation",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break into: (1) implementing zoom and pan gestures, (2) node selection and focus logic, (3) smooth transitions between views, and (4) testing on multiple devices.",
+      "reasoning": "Adding interactivity to complex visualizations involves gesture handling, state management, and UI transitions."
+    },
+    {
+      "taskId": 14,
+      "taskTitle": "Integrate Firebase Analytics",
+      "complexityScore": 4,
+      "recommendedSubtasks": 3,
+      "expansionPrompt": "Expand into: (1) initializing Firebase, (2) setting up custom event tracking, and (3) implementing screen tracking.",
+      "reasoning": "Analytics integration is straightforward but requires careful event and screen tracking setup to ensure data quality."
+    },
+    {
+      "taskId": 15,
+      "taskTitle": "Integrate Mixpanel for Advanced Analytics",
+      "complexityScore": 4,
+      "recommendedSubtasks": 3,
+      "expansionPrompt": "Break down into: (1) initializing Mixpanel, (2) creating custom events and user properties, and (3) implementing funnel analysis.",
+      "reasoning": "Similar to Firebase Analytics, but with additional focus on user properties and funnel analysis. Still a standard integration task."
+    },
+    {
+      "taskId": 16,
+      "taskTitle": "Implement In-App Purchases with RevenueCat",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into: (1) initializing RevenueCat, (2) configuring product identifiers, (3) implementing purchase flow, (4) handling receipt validation, and (5) implementing purchase restoration and error handling.",
+      "reasoning": "In-app purchase integration involves third-party SDK setup, platform-specific configuration, secure validation, and robust error handling."
+    },
+    {
+      "taskId": 17,
+      "taskTitle": "Implement Performance Optimizations",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break into: (1) profiling with DevTools, (2) optimizing drawing algorithms, (3) improving stroke data structures, (4) optimizing database queries, (5) optimizing ZIP compression, and (6) offloading expensive operations from the main thread.",
+      "reasoning": "Performance optimization is a cross-cutting concern requiring deep analysis, algorithmic improvements, and system-wide changes. It is one of the most complex tasks."
+    },
+    {
+      "taskId": 18,
+      "taskTitle": "Implement End-to-End Testing",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Expand into: (1) setting up integration_test, (2) writing tests for each key user flow, (3) creating test fixtures, (4) running tests on multiple devices/platforms, and (5) automating test reporting.",
+      "reasoning": "Comprehensive end-to-end testing covers multiple flows, devices, and platforms, requiring significant setup and maintenance."
+    },
+    {
+      "taskId": 19,
+      "taskTitle": "Set Up Continuous Integration with GitHub Actions",
+      "complexityScore": 6,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down into: (1) configuring unit/widget test workflows, (2) setting up build workflows for iOS/Android, (3) integrating end-to-end tests, (4) adding static analysis and formatting checks, and (5) implementing caching for dependencies.",
+      "reasoning": "CI/CD setup involves multiple workflows, platform builds, and optimizations for speed and reliability."
+    },
+    {
+      "taskId": 20,
+      "taskTitle": "Prepare for App Store Submission",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Expand into: (1) creating App Store Connect listing, (2) preparing metadata and screenshots, (3) configuring app capabilities/entitlements, (4) setting up TestFlight, (5) preparing submission documents, (6) conducting final QA, and (7) addressing beta feedback.",
+      "reasoning": "App Store submission is a multi-faceted process involving technical, legal, and marketing steps, each with strict requirements and potential blockers. It is one of the most complex and critical tasks."
+    }
+  ]
+}

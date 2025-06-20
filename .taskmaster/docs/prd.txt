@@ -1,0 +1,60 @@
+# Meta
+id            : handwrite-graph-app
+revision      : v1.0-flutter-impl
+owner         : <팀장>
+status        : draft
+
+# Tech-Stack
+flutter       : 3.22 (Dart 3.4, Material3)
+canvas        : scribble + CustomPainter + gesture_detector
+db            : Drift ORM (+ sqflite)          # Note / Stroke / Link
+pdf_io        : flutter_pdfx (view) + dart_pdf (export)
+graph         : graphview  (ForceAtlas2)
+analytics     : firebase_analytics + mixpanel_flutter
+payment       : purchases_flutter (RevenueCat)
+compression   : archive (zstd)  # strokes.json.zst
+
+# Functional Modules  (MVP = 런칭 100 %)
+M1 Canvas&Stroke
+    - Draw / Erase / Color / Width
+    - Apple-Pencil pressure → width
+    - Undo · Redo (stack 500)
+M2 LocalStorage
+    - Drift tables  Note / Stroke / Link
+    - autoSave(5s)  · ZIP export(.myhandnote)
+M3 PDF-IO
+    - pdfx viewer → page background
+    - dart_pdf export (background + vector)
+M4 BackLink
+    - Lasso → addLink(src,target)
+    - Backlinks side-panel
+M5 GraphView
+    - nodes/links → graphview layout
+    - pinch-zoom · node→Stroke focus
+
+# Milestones  (6-15 → 11-중)
+S0  6-15 ~ 6-21   Dart syntax + Widget tree  /  flutter create
+S1  6-22 ~ 6-28   scribble POC  + Toolbar UI
+S2  6-29 ~ 7-05   Drift schema  + autoSave + ZIP export
+S3  7-06 ~ 7-12   pdfx viewer + Undo/Redo  (FPS ≥55)
+R1  7-13 ~ 7-15   integrate  ➜  1차 점검 (MVP 50 %)
+ST2 7-16 ~ 9-15   addLink · Backlinks · GraphView  ➜  2차 점검
+FRZ 9-16 ~ 9-30   perf-tune, PDF export, E2E test
+LCH 10-01~10-31   RevenueCat · TestFlight β · App Review submit
+REL 11-01~11-중   Ready-for-Sale, KPI capture
+
+# Task Buckets   (→ MCP epics / labels)
+bucket/canvas      : Painter, PenController, UndoStack
+bucket/db          : Drift schema, DAO, backup-zip
+bucket/pdf         : Viewer, export, page-sync
+bucket/link        : Lasso hit-test, addLink svc, Backlinks UI
+bucket/graph       : layout engine, interaction
+bucket/iap         : purchases_flutter integration
+bucket/analytics   : GA4 tag, firebase + mixpanel events
+bucket/ci          : GitHub Actions build/test/lint
+
+# Acceptance Criteria
+- 1 000 strokes  ▶  FPS ≥ 55, CPU < 50 %, ZIP ≤ 5 MB
+- getBacklinks(id) latency < 20 ms  (local)
+- Ready-for-Sale by 2024-11-10  &  ≥ 10 Pro Unlocks
+
