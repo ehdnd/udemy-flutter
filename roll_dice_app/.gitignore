@@ -1,103 +1,53 @@
 # Miscellaneous
 *.class
+*.lock
 *.log
 *.pyc
 *.swp
 .DS_Store
 .atom/
-.build/
 .buildlog/
 .history
 .svn/
-.swiftpm/
 migrate_working_dir/
 
-# IntelliJ related
+# Flutter/Dart IDE specific
+.idea/
+.vscode/
 *.iml
 *.ipr
-*.iws
-.idea/
 
-# Gradle files
-.gradle/
-**/build/
-
-# Local configuration files
-**/local.properties
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Flutter/Dart tool files
 .dart_tool/
 .packages
-.pub-cache/
-.pub/
+
+# Generated plugin registrant
+lib/generated_plugin_registrant.dart
+
+# Build results
 build/
-flutter_*.log
-# Don't commit pubspec.lock files for library packages.
-# https://dart.dev/guides/libraries/private-files#pubspeclock
-#
-# Packages that are apps should commit the pubspec.lock file.
-# See https://dart.dev/tools/pub/glossary#application-package
-#
-# pubspec.lock
 
-# Android related
-**/android/captures/
-**/android/sdk_version.ini
-**/android/local.properties
-/android/app/src/main/assets/flutter_assets/
+# iOS/macOS
+.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/ephemeral/
+ios/Flutter/flutter_assets/
+ios/Pods/
+ios/Runner/GeneratedPluginRegistrant.*
+ios/Runner.xcworkspace/xcshareddata/
+ios/Runner.xcworkspace/xcuserdata/
+ios/Podfile.lock
+macos/Flutter/ephemeral/
 
-# iOS/macOS related
-**/ios/Pods/
-**/ios/Runner/Assets.xcassets/AppIcon.appiconset/*.png
-**/ios/Runner.xcworkspace/
-**/ios/Runner.xcodeproj/
-**/ios/Flutter/ephemeral/
-**/ios/Flutter/.last_build_id
-**/macos/Flutter/ephemeral/
-**/macos/Pods/
-**/macos/Runner.xcworkspace/
-**/macos/Runner.xcodeproj/
+# Android
+android/.gradle/
+android/app/build/
+android/local.properties
+/android/key.properties
 
-# Windows related
-**/windows/flutter/ephemeral/
-**/windows/CMakeLists.txt.user
-**/windows/app_dlsource.txt
-**/windows/runner/Debug/
-**/windows/runner/Profile/
-**/windows/runner/Release/
-**/windows/runner/CMakeCache.txt
-**/windows/runner/CMakeFiles/
-**/windows/runner/runner.exe.pdb
-**/windows/runner/flutter_window.dll.pdb
-**/windows/runner/flutter_export.h
-**/windows/runner/flutter_messenger.h
-**/windows/runner/flutter_plugin_registrar.h
-**/windows/runner/flutter_texture_registrar.h
-**/windows/runner/flutter_window.h
-**/windows/runner/generated_icudtl.dat
-**/windows/runner/generated_plugins.cmake
-**/windows/runner/project_generator.exe.pdb
-**/windows/plugins/README.md
+# Windows
+windows/flutter/ephemeral/
 
-# Linux related
-**/linux/flutter/ephemeral/
-**/linux/CMakeLists.txt.user
-**/linux/app_dlsource.txt
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# Linux
+linux/flutter/ephemeral/
