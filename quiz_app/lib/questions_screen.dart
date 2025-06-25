@@ -16,11 +16,17 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('The question..'),
+          Text(
+            'The question..',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+          ),
           SizedBox(height: 30),
-          AnswerButton(),
-          AnswerButton(),
-          AnswerButton(),
+          AnswerButton(answerText: 'Answer 1', onTap: () {}),
+          AnswerButton(answerText: 'Answer 2', onTap: () {}),
+          AnswerButton(answerText: 'Answer 3', onTap: () {}),
         ],
       ),
     );
