@@ -21,8 +21,9 @@ class SummaryText extends StatelessWidget {
 }
 
 class QuestionIndexWidget extends StatelessWidget {
-  const QuestionIndexWidget(this.text, this.isCorrect, {super.key});
-  final String text;
+  const QuestionIndexWidget(this.questionIndex, this.isCorrect, {super.key});
+
+  final int questionIndex;
   final bool isCorrect;
 
   @override
@@ -38,7 +39,7 @@ class QuestionIndexWidget extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          text,
+          (questionIndex + 1).toString(),
           style: GoogleFonts.lato(
             color: const Color.fromARGB(255, 0, 0, 0),
             fontSize: 13,
@@ -53,6 +54,7 @@ class QuestionIndexWidget extends StatelessWidget {
 
 class QuestionText extends StatelessWidget {
   const QuestionText(this.text, {super.key});
+
   final String text;
 
   @override
@@ -70,6 +72,7 @@ class QuestionText extends StatelessWidget {
 
 class CorrectAnswerText extends StatelessWidget {
   const CorrectAnswerText(this.text, {super.key});
+
   final String text;
 
   @override
@@ -87,6 +90,7 @@ class CorrectAnswerText extends StatelessWidget {
 
 class UserAnswerText extends StatelessWidget {
   const UserAnswerText(this.text, {super.key});
+
   final String text;
 
   @override

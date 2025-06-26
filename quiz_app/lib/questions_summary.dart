@@ -19,7 +19,7 @@ class QuestionsSummary extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     QuestionIndexWidget(
-                      ((data['questionIndex'] as int) + 1).toString(),
+                      data['questionIndex'] as int,
                       data['correctAnswer'] == data['userAnswer'],
                     ),
                     const SizedBox(width: 10),
