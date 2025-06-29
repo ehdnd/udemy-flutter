@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'package:intl/intl.dart';
 
 import 'package:expense_tracker_app/models/expense.dart';
+import 'new_expense/layouts/mobile_expense_layout.dart';
+import 'new_expense/layouts/desktop_expense_layout.dart';
 
 final uuid = Uuid();
-final formatter = DateFormat.yMd();
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key, required this.onAddExpense});
@@ -24,22 +24,23 @@ class _NewExpenseState extends State<NewExpense> {
   DateTime? _selectedDate;
   Category _selectedCategory = Category.leisure;
 
-  void _presentDatePicker() async {
-    final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1, now.month, now.day);
-    final pickedDate = await showDatePicker(
-      context: context,
-      initialDate: now,
-      firstDate: firstDate,
-      lastDate: now,
-    );
-
+  void _onDateChanged(DateTime? date) {
     setState(() {
-      _selectedDate = pickedDate;
+      _selectedDate = date;
     });
   }
 
-  void _submitExpenseData() {
+  void _onCategoryChanged(Category category) {
+    setState(() {
+      _selectedCategory = category;
+    });
+  }
+
+  void _onCancel() {
+    Navigator.pop(context);
+  }
+
+  void _onSave() {
     final enteredTitle = _titleController.text.trim();
     final enteredAmount = double.tryParse(_amountController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
@@ -87,88 +88,37 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(context) {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
+
     return LayoutBuilder(
       builder: (ctx, constraints) {
         final width = constraints.maxWidth;
+
         return SizedBox(
           height: double.infinity,
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + keyboardSpace),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: _titleController,
-                    maxLength: 50,
-                    decoration: const InputDecoration(
-                      label: Text('Title'),
+              child: width >= 600
+                  ? DesktopExpenseLayout(
+                      titleController: _titleController,
+                      amountController: _amountController,
+                      selectedDate: _selectedDate,
+                      selectedCategory: _selectedCategory,
+                      onDateChanged: _onDateChanged,
+                      onCategoryChanged: _onCategoryChanged,
+                      onCancel: _onCancel,
+                      onSave: _onSave,
+                    )
+                  : MobileExpenseLayout(
+                      titleController: _titleController,
+                      amountController: _amountController,
+                      selectedDate: _selectedDate,
+                      selectedCategory: _selectedCategory,
+                      onDateChanged: _onDateChanged,
+                      onCategoryChanged: _onCategoryChanged,
+                      onCancel: _onCancel,
+                      onSave: _onSave,
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _amountController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            prefixText: '\$',
-                            label: Text('Amount'),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              _selectedDate == null
-                                  ? 'No date selected'
-                                  : formatter.format(_selectedDate!),
-                            ),
-                            IconButton(
-                              onPressed: _presentDatePicker,
-                              icon: const Icon(Icons.calendar_month),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      DropdownButton(
-                        value: _selectedCategory,
-                        items: Category.values
-                            .map(
-                              (category) => DropdownMenuItem(
-                                value: category,
-                                child: Text(category.name.toUpperCase()),
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (value) {
-                          if (value == null) return;
-                          setState(() {
-                            _selectedCategory = value;
-                          });
-                        },
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Cancel'),
-                      ),
-                      ElevatedButton(
-                        onPressed: _submitExpenseData,
-                        child: const Text('Save Expense'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
             ),
           ),
         );
