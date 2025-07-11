@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:meals_app/models/category.dart';
 
+import 'package:meals_app/screens/meals.dart';
+
+import 'package:meals_app/data/dummy_data.dart';
+
 class CategoryGridItem extends StatelessWidget {
   const CategoryGridItem({
     super.key,
@@ -13,7 +17,17 @@ class CategoryGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => MealsScreen(
+              title: category.title,
+              meals: dummyMeals,
+              category: category,
+            ),
+          ),
+        );
+      },
       splashColor: Theme.of(context).colorScheme.primary,
       borderRadius: BorderRadius.circular(16),
       child: Container(

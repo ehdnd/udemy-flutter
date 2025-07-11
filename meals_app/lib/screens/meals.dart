@@ -21,7 +21,19 @@ class MealsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Placeholder(),
+      body: ListView(
+        children: meals
+            .where((x) => (x.categories.contains(category.id)))
+            .map(
+              (e) => Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Text(e.title),
+              ),
+            )
+            .toList(),
+      ),
     );
   }
 }
