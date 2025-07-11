@@ -22,8 +22,9 @@ class CategoryGridItem extends StatelessWidget {
           MaterialPageRoute(
             builder: (ctx) => MealsScreen(
               title: category.title,
-              meals: dummyMeals,
-              category: category,
+              meals: dummyMeals
+                  .where((x) => x.categories.contains(category.id))
+                  .toList(),
             ),
           ),
         );
