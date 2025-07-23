@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
   const MealsScreen({
@@ -9,7 +10,10 @@ class MealsScreen extends StatelessWidget {
     required this.meals,
   });
 
+  /// CategoriesScreen에서 전달받은 title
   final String title;
+
+  /// CategoriesScreen에서 전달받은 filteredMeals
   final List<Meal> meals;
 
   @override
@@ -38,8 +42,8 @@ class MealsScreen extends StatelessWidget {
     if (meals.isNotEmpty) {
       content = ListView.builder(
         itemCount: meals.length,
-        itemBuilder: (ctx, index) => Text(
-          meals[index].title,
+        itemBuilder: (ctx, index) => MealItem(
+          meal: meals[index],
         ),
       );
     }
