@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/screens/meal_detail.dart';
 import 'package:meals_app/widgets/meal_item_trait.dart';
 
 /// meal item data 출력만 담당
@@ -23,6 +24,15 @@ class MealItem extends StatelessWidget {
       meal.affordability.name[0].toUpperCase() +
       meal.affordability.name.substring(1);
 
+  /// meal item 클릭 시 meal detail screen으로 이동
+  void _selectMeal(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => MealDetailScreen(meal: meal),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +43,7 @@ class MealItem extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () {},
+        onTap: () => _selectMeal(context),
         child: Stack(
           children: [
             FadeInImage(
