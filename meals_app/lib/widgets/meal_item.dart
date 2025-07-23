@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'package:meals_app/models/meal.dart';
-import 'package:meals_app/screens/meal_detail.dart';
 import 'package:meals_app/widgets/meal_item_trait.dart';
 
 /// meal item data 출력만 담당
+/// 관심사의 분리 - 오직 UI만 담당
 class MealItem extends StatelessWidget {
   const MealItem({
     super.key,
     required this.meal,
+    required this.onSelectMeal,
   });
 
   /// MealsScreen에서 전달받은 meal item data
   final Meal meal;
+
+  /// MealsScreen에서 전달받은 onSelectMeal
+  /// 콜백 패턴
+  final void Function(Meal meal) onSelectMeal;
 
   /// meal.complexity.name을 첫 글자를 대문자로 변환
   String get complexityText =>
@@ -23,15 +28,6 @@ class MealItem extends StatelessWidget {
   String get affordabilityText =>
       meal.affordability.name[0].toUpperCase() +
       meal.affordability.name.substring(1);
-
-  /// meal item 클릭 시 meal detail screen으로 이동
-  void _selectMeal(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => MealDetailScreen(meal: meal),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +39,7 @@ class MealItem extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () => _selectMeal(context),
+        onTap: () => onSelectMeal(meal),
         child: Stack(
           children: [
             FadeInImage(
