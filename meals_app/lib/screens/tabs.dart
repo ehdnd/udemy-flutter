@@ -24,6 +24,18 @@ class _TabsScreenState extends State<TabsScreen> {
   /// 두 탭이 동일한 데이터를 공유하므로 가장 가까운 공통 조상에서 관리
   final List<Meal> _favoriteMeals = [];
 
+  /// 메시지를 표시하는 함수
+  /// 별표 표시 / 제거 대신 메시지를 표시
+  void _showInfoMessage(String message) {
+    // 먼저 기존 메시지 제거
+    ScaffoldMessenger.of(context).clearSnackBars();
+
+    // 새로운 메시지 추가
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
+
   /// 즐겨찾기 상태를 토글하는 핵심 비즈니스 로직
   ///
   /// @param meal 즐겨찾기 상태를 변경할 meal 객체
@@ -36,13 +48,17 @@ class _TabsScreenState extends State<TabsScreen> {
     // 현재 즐겨찾기 목록에 해당 meal이 있는지 확인
     final isExistingFavorite = _favoriteMeals.contains(meal);
 
-    setState(() {
-      if (isExistingFavorite) {
+    if (isExistingFavorite) {
+      setState(() {
         _favoriteMeals.remove(meal);
-      } else {
+      });
+      _showInfoMessage('Meal removed from favorites');
+    } else {
+      setState(() {
         _favoriteMeals.add(meal);
-      }
-    });
+      });
+      _showInfoMessage('Meal added to favorites');
+    }
   }
 
   /// 선택된 tab의 index를 업데이트
