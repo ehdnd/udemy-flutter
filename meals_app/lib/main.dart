@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:meals_app/screens/categories.dart';
+import 'package:meals_app/screens/tabs.dart';
 
 // ignore: use_full_hex_values_for_flutter_colors
 final theme = ThemeData(
@@ -20,7 +20,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const CategoriesScreen(),
+      home: const TabsScreen(),
     );
   }
 }

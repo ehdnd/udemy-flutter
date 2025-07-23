@@ -7,12 +7,13 @@ import 'package:meals_app/widgets/meal_item.dart';
 class MealsScreen extends StatelessWidget {
   const MealsScreen({
     super.key,
-    required this.title,
+    this.title,
     required this.meals,
   });
 
   /// CategoriesScreen에서 전달받은 title
-  final String title;
+  /// null 가능
+  final String? title;
 
   /// CategoriesScreen에서 전달받은 filteredMeals
   final List<Meal> meals;
@@ -59,9 +60,13 @@ class MealsScreen extends StatelessWidget {
       );
     }
 
+    if (title == null) {
+      return content;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title!),
       ),
       body: content,
     );
