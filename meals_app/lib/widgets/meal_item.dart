@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/widgets/meal_item_trait.dart';
 
 /// meal item data 출력만 담당
 class MealItem extends StatelessWidget {
@@ -10,8 +11,17 @@ class MealItem extends StatelessWidget {
     required this.meal,
   });
 
-  /// meal item data
+  /// MealsScreen에서 전달받은 meal item data
   final Meal meal;
+
+  /// meal.complexity.name을 첫 글자를 대문자로 변환
+  String get complexityText =>
+      meal.complexity.name[0].toUpperCase() + meal.complexity.name.substring(1);
+
+  /// meal.affordability.name을 첫 글자를 대문자로 변환
+  String get affordabilityText =>
+      meal.affordability.name[0].toUpperCase() +
+      meal.affordability.name.substring(1);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +70,23 @@ class MealItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Row(
-                      children: [],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MealItemTrait(
+                          icon: Icons.schedule,
+                          label: '${meal.duration} min',
+                        ),
+                        const SizedBox(width: 12),
+                        MealItemTrait(
+                          icon: Icons.work,
+                          label: complexityText,
+                        ),
+                        const SizedBox(width: 12),
+                        MealItemTrait(
+                          icon: Icons.attach_money,
+                          label: affordabilityText,
+                        ),
+                      ],
                     ),
                   ],
                 ),
