@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/models/meal.dart';
@@ -99,6 +100,10 @@ class _TabsScreenState extends State<TabsScreen> {
         // 선택된 tab에 따라서 타이틀 변경
         title: Text(activePageTitle),
       ),
+
+      /// 메뉴 버튼 클릭시 나오는 메뉴 위젯
+      drawer: const MainDrawer(),
+
       // 선택된 tab에 따라서 보여지는 화면 변경
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
