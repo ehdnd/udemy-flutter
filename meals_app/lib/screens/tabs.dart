@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/data/dummy_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/filters.dart';
+import 'package:meals_app/providers/meals_provider.dart';
 
 const kInitialFilters = {
   // 기본값은 모두 false로 설정
@@ -14,14 +16,14 @@ const kInitialFilters = {
   Filter.vegetarian: false,
 };
 
-class TabsScreen extends StatefulWidget {
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
   @override
-  State<TabsScreen> createState() => _TabsScreenState();
+  ConsumerState<TabsScreen> createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _TabsScreenState extends ConsumerState<TabsScreen> {
   /// 현재 선택된 탭의 인덱스 (0: Categories, 1: Favorites)
   /// BottomNavigationBar와 연동되어 화면 전환에 사용
   int _selectedPageIndex = 0;
@@ -106,8 +108,10 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final meals = ref.watch(mealsProvider);
+
     // `CategoriesScreen` 에는 미리 필터링한 meals 데이터 제공
-    final availableMeals = dummyMeals.where((meal) {
+    final availableMeals = meals.where((meal) {
       if (_selectedFilters[Filter.gluten]! && !meal.isGlutenFree) {
         return false;
       }
