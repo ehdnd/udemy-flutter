@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/widgets/filter_switch_list_tile.dart';
 
 /// 유저 인풋 State를 다뤄야하므로 StatefulWidget 사용
 class FiltersScreen extends StatefulWidget {
@@ -24,32 +25,45 @@ class _FiltersScreenState extends State<FiltersScreen> {
       ),
       body: Column(
         children: [
-          SwitchListTile(
+          FilterSwitchListTile(
+            title: 'Gluten-free',
+            description: 'Only include gluten-free meals.',
             value: _glutenFreeFilterSet,
-            // 새로운 변수를 받아서 상태 변경
             onChanged: (isChecked) {
               setState(() {
                 _glutenFreeFilterSet = isChecked;
               });
             },
-            // 스위치 옆에 label 표시
-            title: Text(
-              'Gluten-free',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-            // 메인 레이블 아래에 표시되는 부가 설명
-            subtitle: Text(
-              'Only include gluten-free meals.',
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-            // active on 시에 표시될 색상
-            activeColor: Theme.of(context).colorScheme.tertiary,
-            // 스위치 옆에 표시되는 텍스트 영역의 패딩 설정 ??
-            contentPadding: EdgeInsets.only(left: 34, right: 22),
+          ),
+          FilterSwitchListTile(
+            title: 'Lactose-free',
+            description: 'Only include lactose-free meals.',
+            value: _lactoseFreeFilterSet,
+            onChanged: (isChecked) {
+              setState(() {
+                _lactoseFreeFilterSet = isChecked;
+              });
+            },
+          ),
+          FilterSwitchListTile(
+            title: 'Vegan',
+            description: 'Only include vegan meals.',
+            value: _veganFilterSet,
+            onChanged: (isChecked) {
+              setState(() {
+                _veganFilterSet = isChecked;
+              });
+            },
+          ),
+          FilterSwitchListTile(
+            title: 'Vegetarian',
+            description: 'Only include vegetarian meals.',
+            value: _vegetarianFilterSet,
+            onChanged: (isChecked) {
+              setState(() {
+                _vegetarianFilterSet = isChecked;
+              });
+            },
           ),
         ],
       ),
