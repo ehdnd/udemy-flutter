@@ -3,6 +3,7 @@ import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/screens/filters.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -71,11 +72,15 @@ class _TabsScreenState extends State<TabsScreen> {
   }
 
   void _selectScreen(String identifier) {
+    // 메뉴 닫기 (모달 또는 dialog 창 닫기)
+    // state class 라 가능
+    Navigator.of(context).pop();
     if (identifier == 'filters') {
-    } else {
-      // 메뉴 닫기 (모달 또는 dialog 창 닫기)
-      // state class 라 가능
-      Navigator.of(context).pop();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (ctx) => const FiltersScreen(),
+        ),
+      );
     }
   }
 
