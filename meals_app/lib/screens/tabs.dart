@@ -70,6 +70,15 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  void _selectScreen(String identifier) {
+    if (identifier == 'filters') {
+    } else {
+      // 메뉴 닫기 (모달 또는 dialog 창 닫기)
+      // state class 라 가능
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     /// 현재 선택된 탭에 따라 표시할 화면
@@ -102,7 +111,10 @@ class _TabsScreenState extends State<TabsScreen> {
       ),
 
       /// 메뉴 버튼 클릭시 나오는 메뉴 위젯
-      drawer: const MainDrawer(),
+      /// 이제 main_drawer 는 tabs 화면과 소통 가능
+      drawer: MainDrawer(
+        onSelectScreen: _selectScreen,
+      ),
 
       // 선택된 tab에 따라서 보여지는 화면 변경
       body: activePage,
