@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/data/dummy_data.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/filters.dart';
-import 'package:meals_app/screens/filters.dart';
+
+const kInitialFilters = {
+  // 기본값은 모두 false로 설정
+  Filter.gluten: false,
+  Filter.lactose: false,
+  Filter.vegan: false,
+  Filter.vegetarian: false,
+};
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -26,6 +34,9 @@ class _TabsScreenState extends State<TabsScreen> {
   ///
   /// 두 탭이 동일한 데이터를 공유하므로 가장 가까운 공통 조상에서 관리
   final List<Meal> _favoriteMeals = [];
+
+  /// filters.dart 에서 선택한 필터 상태 저장
+  Map<Filter, bool> _selectedFilters = kInitialFilters;
 
   /// 메시지를 표시하는 함수
   /// 별표 표시 / 제거 대신 메시지를 표시
@@ -80,21 +91,44 @@ class _TabsScreenState extends State<TabsScreen> {
       // push 제네릭 타입 명시 필요
       final result = await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(
-          builder: (ctx) => const FiltersScreen(),
+          builder: (ctx) => FiltersScreen(
+            currentFilters: _selectedFilters,
+          ),
         ),
       );
       // Map<Filter, bool> 이 리턴될 것을 개발자는 알고 있지
-      print(result);
+      // 빌드 메서드가 실제로 수행되어야 하므로 setState 사용
+      setState(() {
+        _selectedFilters = result ?? kInitialFilters;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // `CategoriesScreen` 에는 미리 필터링한 meals 데이터 제공
+    final availableMeals = dummyMeals.where((meal) {
+      if (_selectedFilters[Filter.gluten]! && !meal.isGlutenFree) {
+        return false;
+      }
+      if (_selectedFilters[Filter.lactose]! && !meal.isLactoseFree) {
+        return false;
+      }
+      if (_selectedFilters[Filter.vegan]! && !meal.isVegan) {
+        return false;
+      }
+      if (_selectedFilters[Filter.vegetarian]! && !meal.isVegetarian) {
+        return false;
+      }
+      return true;
+    }).toList();
+
     /// 현재 선택된 탭에 따라 표시할 화면
     /// 기본값: Categories 화면
     Widget activePage = CategoriesScreen(
       // 콜백 함수를 전달하여 하위 위젯에서 상태 변경 가능하게 함
       onToggleFavorite: _toggleMealFavoriteStatus,
+      availableMeals: availableMeals,
     );
 
     /// AppBar에 표시될 제목 (탭에 따라 동적 변경)
