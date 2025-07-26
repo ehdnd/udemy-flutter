@@ -30,13 +30,24 @@ class _FiltersScreenState extends State<FiltersScreen> {
       appBar: AppBar(
         title: const Text('Your Filters'),
       ),
+
+      /// PopScope: 사용자의 뒤로가기 동작을 감지하고 커스텀 동작 실행
+      ///
+      /// canPop: false - 자동 pop을 차단하고 우리가 수동으로 제어
+      /// onPopInvokedWithResult - 뒤로가기 시도시 실행되는 콜백
       body: PopScope(
         canPop: false,
-        // 사용자가 화면을 나가려고할 때 마다 작동한다
+
+        /// 사용자가 뒤로가기를 시도할 때마다 실행되는 콜백
+        ///
+        /// canPop: false이므로 didPop은 항상 false
         onPopInvokedWithResult: (didPop, result) {
-          if (!didPop) return;
+          if (didPop) return;
+          // canPop: false이므로 didPop은 항상 false
+          // 뒤로가기 시도를 감지했으므로 필터 데이터와 함께 pop 실행
           Navigator.of(context).pop(
-            // map 형태로 반환
+            /// 현재 설정된 필터 상태를 Map으로 이전 화면에 전달
+            /// TabsScreen에서 await Navigator.push()의 결과로 받게 됨
             {
               Filter.gluten: _glutenFreeFilterSet,
               Filter.lactose: _lactoseFreeFilterSet,

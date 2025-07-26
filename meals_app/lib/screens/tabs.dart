@@ -4,6 +4,7 @@ import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/filters.dart';
+import 'package:meals_app/screens/filters.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -71,16 +72,19 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  void _selectScreen(String identifier) {
+  void _selectScreen(String identifier) async {
     // 메뉴 닫기 (모달 또는 dialog 창 닫기)
     // state class 라 가능
     Navigator.of(context).pop();
     if (identifier == 'filters') {
-      Navigator.of(context).push(
+      // push 제네릭 타입 명시 필요
+      final result = await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(
           builder: (ctx) => const FiltersScreen(),
         ),
       );
+      // Map<Filter, bool> 이 리턴될 것을 개발자는 알고 있지
+      print(result);
     }
   }
 
