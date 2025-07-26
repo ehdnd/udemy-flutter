@@ -76,7 +76,7 @@ class _TabsScreenState extends State<TabsScreen> {
     // state class 라 가능
     Navigator.of(context).pop();
     if (identifier == 'filters') {
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).push(
         MaterialPageRoute(
           builder: (ctx) => const FiltersScreen(),
         ),
