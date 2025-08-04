@@ -4,9 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/screens/categories.dart';
 import 'package:meals_app/screens/meals.dart';
-import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/filters.dart';
-import 'package:meals_app/providers/meals_provider.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
 import 'package:meals_app/providers/filters_provider.dart';
 
@@ -34,18 +32,6 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   /// filters.dart 에서 선택한 필터 상태 저장
   /// 이제는 Provider가 관리하므로 삭제
   // Map<Filter, bool> _selectedFilters = {};
-
-  /// 메시지를 표시하는 함수
-  /// 별표 표시 / 제거 대신 메시지를 표시
-  void _showInfoMessage(String message) {
-    // 먼저 기존 메시지 제거
-    ScaffoldMessenger.of(context).clearSnackBars();
-
-    // 새로운 메시지 추가
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
 
   /// 즐겨찾기 상태를 토글하는 핵심 비즈니스 로직
   ///
