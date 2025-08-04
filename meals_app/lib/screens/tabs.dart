@@ -88,25 +88,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final meals = ref.watch(mealsProvider);
-    // final activeFilters = ref.watch(filterProvider);
-
-    // `CategoriesScreen` 에는 미리 필터링한 meals 데이터 제공
-    final availableMeals = meals.where((meal) {
-      if (_selectedFilters[Filter.gluten]! && !meal.isGlutenFree) {
-        return false;
-      }
-      if (_selectedFilters[Filter.lactose]! && !meal.isLactoseFree) {
-        return false;
-      }
-      if (_selectedFilters[Filter.vegan]! && !meal.isVegan) {
-        return false;
-      }
-      if (_selectedFilters[Filter.vegetarian]! && !meal.isVegetarian) {
-        return false;
-      }
-      return true;
-    }).toList();
+    final availableMeals = ref.watch(filteredMealsProvider);
 
     /// 현재 선택된 탭에 따라 표시할 화면
     /// 기본값: Categories 화면
