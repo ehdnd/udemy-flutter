@@ -29,7 +29,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   /// - Favorites 탭: 즐겨찾기된 meal들을 표시
   ///
   /// 두 탭이 동일한 데이터를 공유하므로 가장 가까운 공통 조상에서 관리
-  final List<Meal> _favoriteMeals = [];
+  // final List<Meal> _favoriteMeals = [];
 
   /// filters.dart 에서 선택한 필터 상태 저장
   /// 이제는 Provider가 관리하므로 삭제

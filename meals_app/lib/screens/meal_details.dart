@@ -27,6 +27,9 @@ class MealDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteMeals = ref.watch(favoriteMealsProvider);
+    final isFavorite = favoriteMeals.contains(meal);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
@@ -54,11 +57,9 @@ class MealDetailsScreen extends ConsumerWidget {
                 ),
               );
             },
-
-            // TODO: 즐겨찾기 상태에 따라 아이콘 변경 필요
-            // 현재: 항상 동일한 아이콘
-            // 개선: 즐겨찾기 상태를 받아서 filled/outlined 구분
-            icon: const Icon(Icons.star),
+            icon: Icon(
+              isFavorite ? Icons.star : Icons.star_border,
+            ),
           ),
         ],
       ),
