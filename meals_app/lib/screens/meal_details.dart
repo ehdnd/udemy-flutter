@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/providers/favorites_provider.dart';
 
 /// 개별 meal의 상세 정보를 표시하는 화면
 ///
@@ -8,7 +9,7 @@ import 'package:meals_app/models/meal.dart';
 /// - meal 이미지, 재료, 조리 방법 표시
 /// - AppBar에 즐겨찾기 토글 버튼 제공
 /// - 즐겨찾기 상태 변경 시 TabsScreen의 상태 업데이트
-class MealDetailsScreen extends StatelessWidget {
+class MealDetailsScreen extends ConsumerWidget {
   const MealDetailsScreen({
     super.key,
     required this.meal,
@@ -25,7 +26,7 @@ class MealDetailsScreen extends StatelessWidget {
   // final Function(Meal) onToggleFavorite;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
@@ -35,8 +36,24 @@ class MealDetailsScreen extends StatelessWidget {
             ///
             /// 동작: 현재 meal을 인자로 onToggleFavorite 콜백 호출
             /// 결과: TabsScreen의 상태가 변경되어 Favorites 탭에 즉시 반영
-            /// -> 이제 이 로직은 Provider가 수행하게 된다
             // onPressed: () => onToggleFavorite(meal),
+            /// -> 이제 이 로직은 Provider가 수행하게 된다
+            onPressed: () {
+              final wasAdded = ref
+                  .read(favoriteMealsProvider.notifier)
+                  .toggleMealFavoriteStatus(meal);
+
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    wasAdded
+                        ? 'Meal added to favorites'
+                        : 'Meal removed from favorites',
+                  ),
+                ),
+              );
+            },
 
             // TODO: 즐겨찾기 상태에 따라 아이콘 변경 필요
             // 현재: 항상 동일한 아이콘
