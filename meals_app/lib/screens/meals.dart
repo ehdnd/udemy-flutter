@@ -19,7 +19,7 @@ class MealsScreen extends StatelessWidget {
     super.key,
     this.title,
     required this.meals,
-    required this.onToggleFavorite,
+    // required this.onToggleFavorite,
   });
 
   /// 화면 제목 (선택적)
@@ -36,7 +36,7 @@ class MealsScreen extends StatelessWidget {
   ///
   /// 이 화면의 역할: 콜백 함수를 MealDetailsScreen으로 전달 (Pass-through)
   /// 실제 호출: MealDetailsScreen의 AppBar 즐겨찾기 버튼에서 발생
-  final Function(Meal) onToggleFavorite;
+  // final Function(Meal) onToggleFavorite;
 
   /// meal 선택 시 상세 화면으로 이동하는 내비게이션 로직
   ///
@@ -48,7 +48,7 @@ class MealsScreen extends StatelessWidget {
         builder: (ctx) => MealDetailsScreen(
           meal: meal,
           // 핵심: 즐겨찾기 콜백을 최종 목적지에 전달
-          onToggleFavorite: onToggleFavorite,
+          // onToggleFavorite: onToggleFavorite,
         ),
       ),
     );

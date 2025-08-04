@@ -7,6 +7,7 @@ import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/filters.dart';
 import 'package:meals_app/providers/meals_provider.dart';
+import 'package:meals_app/providers/favorites_provider.dart';
 
 const kInitialFilters = {
   // 기본값은 모두 false로 설정
@@ -60,22 +61,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   /// - 이미 즐겨찾기라면 → 제거
   /// - 즐겨찾기가 아니라면 → 추가
   /// - setState() 호출로 UI 자동 업데이트
-  void _toggleMealFavoriteStatus(Meal meal) {
-    // 현재 즐겨찾기 목록에 해당 meal이 있는지 확인
-    final isExistingFavorite = _favoriteMeals.contains(meal);
-
-    if (isExistingFavorite) {
-      setState(() {
-        _favoriteMeals.remove(meal);
-      });
-      _showInfoMessage('Meal removed from favorites');
-    } else {
-      setState(() {
-        _favoriteMeals.add(meal);
-      });
-      _showInfoMessage('Meal added to favorites');
-    }
-  }
+  ///
+  /// -> 이제 이 로직은 Provider가 수행하므로 삭제
+  /// StateNotifier의 메서드를 호출하면 자동으로 UI 업데이트 된다.
 
   /// 선택된 tab의 index를 업데이트
   /// 인덱스를 수정하고 화면 갱신
@@ -131,7 +119,8 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     /// 기본값: Categories 화면
     Widget activePage = CategoriesScreen(
       // 콜백 함수를 전달하여 하위 위젯에서 상태 변경 가능하게 함
-      onToggleFavorite: _toggleMealFavoriteStatus,
+      // -> 모든 위젯 레이어를 통과했는데 provider 도입으로 필요없다
+      // onToggleFavorite: _toggleMealFavoriteStatus,
       availableMeals: availableMeals,
     );
 
@@ -140,10 +129,15 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     // Favorites 탭 선택시
     if (_selectedPageIndex == 1) {
+      /// provider 에서 즐겨찾기 목록을 가져온다
+      /// state를 자동으로 넘겨주니 List<Meal> 타입
+      final favoriteMeals = ref.watch(favoriteMealsProvider);
+
       activePage = MealsScreen(
         // 즐겨찾기 목록을 전달
-        meals: _favoriteMeals,
-        onToggleFavorite: _toggleMealFavoriteStatus,
+        meals: favoriteMeals,
+        // 모든 위젯 레이어를 통과했는데 provider 도입으로 필요없다
+        // onToggleFavorite: _toggleMealFavoriteStatus,
       );
       // app bar 타이틀 변경
       activePageTitle = 'Favorites';

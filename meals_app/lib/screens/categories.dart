@@ -15,7 +15,7 @@ import 'package:meals_app/widgets/category_grid_item.dart';
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({
     super.key,
-    required this.onToggleFavorite,
+    // required this.onToggleFavorite,
     required this.availableMeals,
   });
 
@@ -25,7 +25,7 @@ class CategoriesScreen extends StatelessWidget {
   /// 실제 사용: MealsScreen → MealDetailsScreen에서 호출됨
   ///
   /// 콜백 체인: TabsScreen → CategoriesScreen → MealsScreen → MealDetailsScreen
-  final Function(Meal) onToggleFavorite;
+  // final Function(Meal) onToggleFavorite;
 
   final List<Meal> availableMeals;
 
@@ -46,7 +46,7 @@ class CategoriesScreen extends StatelessWidget {
           title: category.title,
           meals: filteredMeals,
           // 중요: 콜백 함수를 계속 전달하여 하위에서 즐겨찾기 기능 사용 가능
-          onToggleFavorite: onToggleFavorite,
+          // onToggleFavorite: onToggleFavorite,
         ),
       ),
     );
