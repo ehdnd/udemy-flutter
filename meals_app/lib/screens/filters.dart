@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_app/providers/filters_provider.dart';
 import 'package:meals_app/widgets/filter_switch_list_tile.dart';
 
-enum Filter {
-  gluten,
-  lactose,
-  vegan,
-  vegetarian,
-}
-
 /// 유저 인풋 State를 다뤄야하므로 StatefulWidget 사용
-class FiltersScreen extends StatefulWidget {
+/// 하지만 이제는 Provider를 사용하므로 ConsumerStatefulWidget 사용
+class FiltersScreen extends ConsumerStatefulWidget {
   const FiltersScreen({
     super.key,
     required this.currentFilters,
@@ -18,10 +14,10 @@ class FiltersScreen extends StatefulWidget {
   final Map<Filter, bool> currentFilters;
 
   @override
-  State<FiltersScreen> createState() => _FiltersScreenState();
+  ConsumerState<FiltersScreen> createState() => _FiltersScreenState();
 }
 
-class _FiltersScreenState extends State<FiltersScreen> {
+class _FiltersScreenState extends ConsumerState<FiltersScreen> {
   var _glutenFreeFilterSet = false;
   var _lactoseFreeFilterSet = false;
   var _veganFilterSet = false;

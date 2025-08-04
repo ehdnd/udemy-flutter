@@ -8,6 +8,7 @@ import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/filters.dart';
 import 'package:meals_app/providers/meals_provider.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
+import 'package:meals_app/providers/filters_provider.dart';
 
 const kInitialFilters = {
   // 기본값은 모두 false로 설정
