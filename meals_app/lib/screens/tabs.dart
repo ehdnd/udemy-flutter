@@ -10,14 +10,6 @@ import 'package:meals_app/providers/meals_provider.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
 import 'package:meals_app/providers/filters_provider.dart';
 
-const kInitialFilters = {
-  // 기본값은 모두 false로 설정
-  Filter.gluten: false,
-  Filter.lactose: false,
-  Filter.vegan: false,
-  Filter.vegetarian: false,
-};
-
 class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
@@ -40,7 +32,8 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   final List<Meal> _favoriteMeals = [];
 
   /// filters.dart 에서 선택한 필터 상태 저장
-  Map<Filter, bool> _selectedFilters = kInitialFilters;
+  /// 이제는 Provider가 관리하므로 삭제
+  // Map<Filter, bool> _selectedFilters = {};
 
   /// 메시지를 표시하는 함수
   /// 별표 표시 / 제거 대신 메시지를 표시
@@ -79,25 +72,24 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     // state class 라 가능
     Navigator.of(context).pop();
     if (identifier == 'filters') {
-      // push 제네릭 타입 명시 필요
-      final result = await Navigator.of(context).push<Map<Filter, bool>>(
+      await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(
-          builder: (ctx) => FiltersScreen(
-            currentFilters: _selectedFilters,
-          ),
+          builder: (ctx) => FiltersScreen(),
         ),
       );
       // Map<Filter, bool> 이 리턴될 것을 개발자는 알고 있지
       // 빌드 메서드가 실제로 수행되어야 하므로 setState 사용
-      setState(() {
-        _selectedFilters = result ?? kInitialFilters;
-      });
+      // -> 이제는 필터 상태를 Provider가 관리하므로 삭제
+      // setState(() {
+      //   _selectedFilters = result ?? kInitialFilters;
+      // });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final meals = ref.watch(mealsProvider);
+    // final activeFilters = ref.watch(filterProvider);
 
     // `CategoriesScreen` 에는 미리 필터링한 meals 데이터 제공
     final availableMeals = meals.where((meal) {

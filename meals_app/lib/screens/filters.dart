@@ -6,12 +6,7 @@ import 'package:meals_app/widgets/filter_switch_list_tile.dart';
 /// 유저 인풋 State를 다뤄야하므로 StatefulWidget 사용
 /// 하지만 이제는 Provider를 사용하므로 ConsumerStatefulWidget 사용
 class FiltersScreen extends ConsumerStatefulWidget {
-  const FiltersScreen({
-    super.key,
-    required this.currentFilters,
-  });
-
-  final Map<Filter, bool> currentFilters;
+  const FiltersScreen({super.key});
 
   @override
   ConsumerState<FiltersScreen> createState() => _FiltersScreenState();
@@ -26,10 +21,14 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
   @override
   void initState() {
     super.initState();
-    _glutenFreeFilterSet = widget.currentFilters[Filter.gluten]!;
-    _lactoseFreeFilterSet = widget.currentFilters[Filter.lactose]!;
-    _veganFilterSet = widget.currentFilters[Filter.vegan]!;
-    _vegetarianFilterSet = widget.currentFilters[Filter.vegetarian]!;
+
+    /// initState()는 한 번만 실행되므로 read() 사용
+    final activeFilters = ref.read(filterProvider);
+
+    _glutenFreeFilterSet = activeFilters[Filter.gluten]!;
+    _lactoseFreeFilterSet = activeFilters[Filter.lactose]!;
+    _veganFilterSet = activeFilters[Filter.vegan]!;
+    _vegetarianFilterSet = activeFilters[Filter.vegetarian]!;
   }
 
   @override
@@ -52,18 +51,28 @@ class _FiltersScreenState extends ConsumerState<FiltersScreen> {
         /// canPop: false이므로 didPop은 항상 false
         onPopInvokedWithResult: (didPop, result) {
           if (didPop) return;
-          // canPop: false이므로 didPop은 항상 false
-          // 뒤로가기 시도를 감지했으므로 필터 데이터와 함께 pop 실행
-          Navigator.of(context).pop(
-            /// 현재 설정된 필터 상태를 Map으로 이전 화면에 전달
-            /// TabsScreen에서 await Navigator.push()의 결과로 받게 됨
-            {
-              Filter.gluten: _glutenFreeFilterSet,
-              Filter.lactose: _lactoseFreeFilterSet,
-              Filter.vegan: _veganFilterSet,
-              Filter.vegetarian: _vegetarianFilterSet,
-            },
-          );
+
+          /// 한 번에 모든 필터 상태를 업데이트 한다
+          ref.read(filterProvider.notifier).setFilters({
+            Filter.gluten: _glutenFreeFilterSet,
+            Filter.lactose: _lactoseFreeFilterSet,
+            Filter.vegan: _veganFilterSet,
+            Filter.vegetarian: _vegetarianFilterSet,
+          });
+
+          // // canPop: false이므로 didPop은 항상 false
+          // // 뒤로가기 시도를 감지했으므로 필터 데이터와 함께 pop 실행
+          // Navigator.of(context).pop(
+          //   /// 현재 설정된 필터 상태를 Map으로 이전 화면에 전달
+          //   /// TabsScreen에서 await Navigator.push()의 결과로 받게 됨
+          //   {
+          //     Filter.gluten: _glutenFreeFilterSet,
+          //     Filter.lactose: _lactoseFreeFilterSet,
+          //     Filter.vegan: _veganFilterSet,
+          //     Filter.vegetarian: _vegetarianFilterSet,
+          //   },
+          // );
+          // -> 데이터 전달하기 위해 pop 을 사용했는데 이제는 필요 없다
         },
         child: Column(
           children: [

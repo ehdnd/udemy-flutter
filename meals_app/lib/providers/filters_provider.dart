@@ -28,7 +28,13 @@ class FlilterProvider extends StateNotifier<Map<Filter, bool>> {
       filter: isActive,
     };
   }
+
+  void setFilters(Map<Filter, bool> activeFilters) {
+    state = activeFilters;
+  }
 }
 
 final filterProvider =
-    StateNotifierProvider<FlilterProvider, Map<Filter, bool>>();
+    StateNotifierProvider<FlilterProvider, Map<Filter, bool>>(
+      (ref) => FlilterProvider(),
+    );
